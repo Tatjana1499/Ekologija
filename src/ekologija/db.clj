@@ -1,17 +1,30 @@
 (ns ekologija.db
-  (  :require [clojure.java.jdbc :as j])
-  )
+  (  :require [clojure.java.jdbc :as jdbc])
+  (:gen-class))
 
-(def db {:dbtype "postgresql"
-         :dbname "postgres"
-         :host "localhost"
-         :user "postgres"
-         :password "admin"})
+(def testdata
+  { :FirstName "Petar",
+   :LastName "Peric",
+   :Username "Pera",
+   :Password "12345",
+   :Role "User"
+   })
 
+(def db
+  {:classname   "org.sqlite.JDBC"
+   :subprotocol "sqlite"
+   :subname     "db/DemoDB.db"
+   })
 
-(j/insert! db :table_test1 {:name "Zika"})
-(j/query db ["SELECT * FROM table_test1"])
-(j/delete! db :table_test1 ["id = ?" 2])
+ (jdbc/db-do-commands db
+                      "create table User (
+                        UserId integer primary key autoincrement,
+                        FirstName varchar(255) not null,
+                        LastName varchar(255) not null,
+                        Username varchar(255) not null,
+                        Password varchar(255) not null,
+                        Role varchar(255) not null
+                        );")
 
-
-
+(jdbc/insert! db :User testdata)
+(jdbc/query db ["SELECT * FROM User"])
