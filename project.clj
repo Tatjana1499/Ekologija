@@ -7,6 +7,7 @@
                  [ring/ring-defaults "0.3.2"]
                  [org.clojure/java.jdbc "0.7.12"]
                  [org.xerial/sqlite-jdbc "3.23.1"]
+                 [hiccup "1.0.5"]
                  ;;[mysql/mysql-connector-java "5.1.18"]
                  ;;[org.xerial/sqlite-jdbc "3.40.0.0"]
                  ]
